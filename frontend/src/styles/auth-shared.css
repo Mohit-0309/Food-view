@@ -1,0 +1,298 @@
+/* Shared Auth Form Styles */
+@import './theme.css';
+
+/* New vibrant background for auth pages with colored accents */
+.auth-page-wrapper {
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column; 
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-8) var(--space-4);
+  background: var(--color-bg); 
+  
+  /* Vibrant radial background gradients */
+  background-image: radial-gradient(circle at 10% 90%, rgba(34, 211, 238, 0.15) 0%, transparent 35%), 
+                    radial-gradient(circle at 90% 10%, rgba(251, 113, 133, 0.15) 0%, transparent 30%); 
+  background-attachment: fixed;
+}
+
+
+/* --- CORE FORM CARD STYLES (.auth-card is used by ALL login/register screens) --- */
+.auth-card {
+  width: 100%;
+  max-width: 440px;
+  
+  /* Glassmorphism Key Properties */
+  background: rgba(43, 31, 85, 0.55); 
+  backdrop-filter: blur(15px) saturate(180%);
+  -webkit-backdrop-filter: blur(15px) saturate(180%);
+  
+  border: 1px solid rgba(255, 255, 255, 0.18); 
+  padding: var(--space-8);
+  border-radius: 16px;
+  box-shadow: var(--shadow-md); 
+  
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+  color: var(--color-text); 
+}
+
+.auth-card header { text-align: center; }
+
+.auth-title {
+  font-size: 2rem; 
+  font-weight: 700;
+  letter-spacing: -0.5px;
+  margin-bottom: var(--space-3);
+  color: var(--color-text);
+}
+
+.auth-subtitle {
+  font-size: 1rem;
+  color: var(--color-text-secondary);
+}
+
+/* Form Spacing and Structure */
+form.auth-form { display: flex; flex-direction: column; gap: var(--space-6); } /* Consistent vertical gap between fields */
+
+.field-group { display: flex; flex-direction: column; gap: 8px; } /* Consistent gap between label and input */
+
+.field-group label {
+  font-size: .8rem;
+  text-transform: uppercase;
+  letter-spacing: .1em;
+  font-weight: 600;
+  color: var(--color-text-secondary);
+}
+
+/* --- INPUT FIELD STYLING FIXES (applies to all pages) --- */
+
+/* Base styling for ALL inputs, guaranteeing consistent height and box-sizing */
+.field-group input,
+.field-group textarea {
+  appearance: none;
+  font: inherit;
+  color: var(--color-text);
+  border-radius: var(--radius-sm);
+  width: 100%;
+  min-width: 0;
+  box-sizing: border-box; /* CRITICAL: Prevents size change on focus */
+  outline: none;
+  transition: all 180ms cubic-bezier(.4,0,.2,1);
+  box-shadow: none; 
+}
+
+/* Styling for bare inputs (Name, Address, Phone) - No icon wrapper needed */
+.field-group input:not([type='password']):not([type='email']) {
+  height: 48px; 
+  padding: 12px 14px; 
+  background: var(--color-surface-alt);
+  border: 1px solid var(--color-border);
+}
+
+/* Input container for fields WITH icons (Email, Password) */
+.field-group .input-with-icon { 
+    position: relative; 
+    display: flex;
+    align-items: center; 
+    height: 48px; 
+    padding: 0; 
+    
+    background: var(--color-surface-alt);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-sm);
+    box-shadow: none;
+    transition: all 180ms cubic-bezier(.4,0,.2,1);
+}
+
+/* Input element INSIDE .input-with-icon */
+.field-group .input-with-icon input {
+    border: none; 
+    background: transparent;
+    padding: 12px 40px 12px 14px; /* Padding for text + space for icon */
+    height: 100%; 
+}
+
+.field-group .input-with-icon .input-icon {
+    position: absolute;
+    right: 12px;
+    pointer-events: none; 
+}
+
+.field-group .input-with-icon .input-icon svg {
+    color: var(--color-text-secondary);
+    display: block; 
+}
+
+/* Focus State: Apply focused styles using box-shadow on the container/input itself */
+/* The box-shadow does not affect layout thanks to box-sizing: border-box */
+.field-group input:focus-visible,
+.field-group .input-with-icon:focus-within { 
+    border-color: var(--color-accent);
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-accent) 55%, transparent);
+    background: var(--color-surface);
+}
+
+/* Textarea specific override */
+.field-group textarea {
+    height: auto; 
+    min-height: 96px;
+    padding: 12px 14px;
+    background: var(--color-surface-alt);
+    border: 1px solid var(--color-border);
+}
+.field-group textarea:focus-visible {
+    border-color: var(--color-accent);
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-accent) 55%, transparent);
+    background: var(--color-surface);
+}
+/* --- END INPUT FIELD STYLING FIXES --- */
+
+/* Two Column Layout */
+.two-col { display: flex; gap: var(--space-4); }
+.two-col .field-group { flex: 1 1 0; min-width: 0; }
+
+
+button.auth-submit {
+  margin-top: var(--space-4); 
+  background: var(--color-accent);
+  color: #fff;
+  border: none;
+  padding: 14px 20px; 
+  font: inherit;
+  font-weight: 700; 
+  border-radius: var(--radius-md); 
+  cursor: pointer;
+  letter-spacing: .5px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  /* Updated shadow for a professional, elegant button glow */
+  box-shadow: 0 6px 15px -3px color-mix(in srgb, var(--color-accent) 60%, transparent); 
+  transition: background var(--transition-base), transform var(--transition-base), box-shadow var(--transition-base);
+}
+
+button.auth-submit:hover { 
+    background: var(--color-accent-hover); 
+    box-shadow: 0 8px 20px -3px color-mix(in srgb, var(--color-accent-hover) 80%, transparent);
+}
+button.auth-submit:active { transform: translateY(1px); }
+button.auth-submit:focus-visible { outline: 3px solid var(--color-accent-hover); outline-offset: 3px; }
+
+.auth-alt-action {
+  text-align: center;
+  font-size: .95rem;
+  color: var(--color-text-secondary);
+}
+
+.auth-alt-action a { font-weight: 600; color: var(--color-accent-hover); }
+
+.small-note { font-size: .7rem; color: var(--color-text-secondary); line-height: 1.2; }
+
+
+/* --- LANDING PAGE SPECIFIC STYLES (for the two-card layout) --- */
+.landing-content {
+    max-width: 1000px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-8);
+}
+.landing-header {
+    text-align: center;
+    max-width: 700px;
+    padding-bottom: var(--space-6);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+.landing-tagline {
+    font-size: 2.5rem;
+    font-weight: 800;
+    margin-bottom: var(--space-3);
+    color: #fff;
+    text-shadow: 0 2px 8px rgba(0,0,0,0.4);
+}
+.landing-subtitle {
+    font-size: 1.15rem;
+    color: var(--color-text-secondary);
+}
+
+.landing-cards-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-6);
+    width: 100%;
+}
+@media (min-width: 768px) {
+    .landing-cards-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: var(--space-8);
+    }
+}
+
+.landing-card {
+    background: rgba(43, 31, 85, 0.65);
+    padding: var(--space-8);
+    border-radius: 16px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(15px) saturate(180%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: var(--space-4);
+    min-height: 350px;
+}
+.landing-card-title {
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: var(--color-accent-hover);
+    margin-bottom: var(--space-2);
+}
+.landing-card-desc {
+    color: var(--color-text-secondary);
+    font-size: 1rem;
+    flex-grow: 1;
+}
+.landing-card-button {
+    margin-top: var(--space-4);
+    width: 100%;
+    text-decoration: none;
+    padding: 14px 20px;
+    font-weight: 700;
+    border-radius: var(--radius-md);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    transition: all var(--transition-base);
+}
+.landing-card-button.primary {
+    background: var(--color-accent);
+    color: #fff;
+    box-shadow: 0 4px 12px color-mix(in srgb, var(--color-accent) 60%, transparent);
+}
+.landing-card-button.secondary {
+    background: var(--color-surface-alt);
+    color: var(--color-text);
+    border: 1px solid var(--color-border);
+}
+.landing-card-button.primary:hover { background: var(--color-accent-hover); }
+.landing-card-button.secondary:hover { background: color-mix(in srgb, var(--color-surface-alt) 80%, transparent); }
+
+.landing-alt-action {
+    margin-top: var(--space-4);
+    font-size: 1rem;
+    color: var(--color-text-secondary);
+}
+.landing-alt-action a {
+    font-weight: 700;
+    color: var(--color-accent-hover);
+}
+/* --- END LANDING PAGE STYLES --- */
+
+/* Smooth transitions for theme change */
+body, .auth-card, .field-group input { transition: background 200ms ease, color 200ms ease, border-color 200ms ease; }
