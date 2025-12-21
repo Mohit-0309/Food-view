@@ -5,26 +5,37 @@
   height: 100dvh;
   background: var(--color-bg);
   overflow: hidden; /* parent hides overscroll glow on iOS */
+  display: grid;
+  place-items: center;
+  padding: 16px;
 }
 
 /* Vertical feed with snap scrolling */
 .reels-feed {
   height: 100%;
-  width: 100%;
+  width: min(420px, 100%);      /* phone-ish width on desktop */
+  max-height: 100%;
+  aspect-ratio: 9 / 16;         /* key: shorts ratio */
+
   overflow-y: auto;
   scroll-snap-type: y mandatory;
   overscroll-behavior-y: contain;
   -webkit-overflow-scrolling: touch;
   scroll-behavior: smooth;
+
+  border-radius: 16px;          /* optional: feels like embedded phone */
+  box-shadow: var(--shadow-md); /* optional */
+  border: 1px solid var(--color-border);
+  background: #000;
 }
 
 /* Each reel takes full viewport */
 .reel {
   position: relative;
-  height: 100dvh;
+  height: 100%;
   width: 100%;
   scroll-snap-align: start;
-  background: #000; /* fallback while video loads */
+  background: #000/* fallback while video loads */
 }
 
 .reel-video {
@@ -111,7 +122,7 @@
 .reel-actions {
   position: absolute;
   right: 10px;
-  bottom: 96px; /* above bottom CTA and nav */
+  bottom: 98px; /* above bottom CTA and nav */
   display: flex;
   flex-direction: column;
   gap: 14px;
