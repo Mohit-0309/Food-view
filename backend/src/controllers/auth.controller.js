@@ -244,7 +244,15 @@ async function registerUser(req, res) {
     const hashedPassword = await bcrypt.hash(password, 10);
     const user = await userModel.create({ fullName, email, password: hashedPassword });
     const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET);
-    res.cookie("token", token);
+    res.cookie("token", token,
+        {
+            httpOnly: true,
+            secure: true,      // Required for SameSite: 'none'
+            sameSite: 'none',  // Required for cross-domain (Vercel to Render)
+            partitioned: true, // Helps with modern Chrome privacy rules
+            maxAge: 24 * 60 * 60 * 1000
+        }
+    );
     res.status(201).json({ message: "User registered successfully", user: { _id: user._id, email: user.email, fullName: user.fullName } });
 }
 
@@ -259,7 +267,15 @@ async function loginUser(req, res) {
         return res.status(400).json({ message: "Invalid email or password" });
     }
     const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET);
-    res.cookie("token", token);
+    res.cookie("token", token,
+        {
+            httpOnly: true,
+            secure: true,      // Required for SameSite: 'none'
+            sameSite: 'none',  // Required for cross-domain (Vercel to Render)
+            partitioned: true, // Helps with modern Chrome privacy rules
+            maxAge: 24 * 60 * 60 * 1000
+        }
+    );
     res.status(200).json({ message: "User logged in successfully", user: { _id: user._id, email: user.email, fullName: user.fullName } });
 }
 
@@ -277,7 +293,15 @@ async function registerFoodPartner(req, res) {
     const hashedPassword = await bcrypt.hash(password, 10);
     const foodPartner = await foodPartnerModel.create({ name, email, password: hashedPassword, phone, address, contactName });
     const token = jwt.sign({ id: foodPartner._id }, process.env.JWT_SECRET);
-    res.cookie("token", token);
+    res.cookie("token", token,
+        {
+            httpOnly: true,
+            secure: true,      // Required for SameSite: 'none'
+            sameSite: 'none',  // Required for cross-domain (Vercel to Render)
+            partitioned: true, // Helps with modern Chrome privacy rules
+            maxAge: 24 * 60 * 60 * 1000
+        }
+    );
     res.status(201).json({ message: "Food partner registered successfully", foodPartner: { _id: foodPartner._id, email: foodPartner.email, name: foodPartner.name, address: foodPartner.address, contactName: foodPartner.contactName, phone: foodPartner.phone } });
 }
 
@@ -292,7 +316,15 @@ async function loginFoodPartner(req, res) {
         return res.status(400).json({ message: "Invalid email or password" });
     }
     const token = jwt.sign({ id: foodPartner._id }, process.env.JWT_SECRET);
-    res.cookie("token", token);
+    res.cookie("token", token,
+        {
+            httpOnly: true,
+            secure: true,      // Required for SameSite: 'none'
+            sameSite: 'none',  // Required for cross-domain (Vercel to Render)
+            partitioned: true, // Helps with modern Chrome privacy rules
+            maxAge: 24 * 60 * 60 * 1000
+        }
+    );
     res.status(200).json({ message: "Food partner logged in successfully", foodPartner: { _id: foodPartner._id, email: foodPartner.email, name: foodPartner.name } });
 }
 
@@ -348,7 +380,15 @@ async function verifyGoogleTokenAndLogin(idToken, model, isPartner = false) {
 async function googleUserLogin(req, res) {
     try {
         const token = await verifyGoogleTokenAndLogin(req.body.idToken, userModel, false);
-        res.cookie("token", token);
+        res.cookie("token", token,
+            {
+                httpOnly: true,
+                secure: true,      // Required for SameSite: 'none'
+                sameSite: 'none',  // Required for cross-domain (Vercel to Render)
+                partitioned: true, // Helps with modern Chrome privacy rules
+                maxAge: 24 * 60 * 60 * 1000
+            }
+        );
         res.status(200).json({ message: "User logged in successfully with Google." });
     } catch (error) {
         console.error("Google User login failed:", error);
@@ -359,7 +399,15 @@ async function googleUserLogin(req, res) {
 async function googleFoodPartnerLogin(req, res) {
     try {
         const token = await verifyGoogleTokenAndLogin(req.body.idToken, foodPartnerModel, true);
-        res.cookie("token", token);
+        res.cookie("token", token,
+            {
+                httpOnly: true,
+                secure: true,      // Required for SameSite: 'none'
+                sameSite: 'none',  // Required for cross-domain (Vercel to Render)
+                partitioned: true, // Helps with modern Chrome privacy rules
+                maxAge: 24 * 60 * 60 * 1000
+            }
+        );
         res.status(200).json({ message: "Food Partner logged in successfully with Google." });
     } catch (error) {
         console.error("Google Partner login failed:", error);

@@ -12,7 +12,7 @@ const FoodPartnerLogin = () => {
   // Function called by Google SDK upon successful login (for partners)
   const handleCredentialResponse = async (response) => {
     try {
-        const res = await axios.post(`${API_URL}http://localhost:3000/api/auth/google/food-partner`, {
+        const res = await axios.post(`${API_URL}/api/auth/google/food-partner`, {
             idToken: response.credential
         }, { withCredentials: true });
     
