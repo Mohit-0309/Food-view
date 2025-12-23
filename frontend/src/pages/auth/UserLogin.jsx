@@ -1,11 +1,14 @@
 import React, { useEffect } from 'react';
 import '../../styles/auth-shared.css';
+import '../../styles/reels.css'; // Added import for reels.css
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
 const UserLogin = () => {
 
   const navigate = useNavigate();
+
+  const GOOGLE_CLIENT_ID = import.meta.env.VITE_GOOGLE_CLIENT_ID;
 
   // Function called by Google SDK upon successful login
   const handleCredentialResponse = async (response) => {
@@ -24,23 +27,23 @@ const UserLogin = () => {
   };
 
   useEffect(() => {
-    // Check if google SDK is loaded and initialize
-    if (window.google) {
-        window.google.accounts.id.initialize({
-            client_id: "YOUR_GOOGLE_CLIENT_ID", // !!! REPLACE THIS !!!
-            callback: handleCredentialResponse,
-        });
-
-        // Render the Google Sign-In button into the container
-        window.google.accounts.id.renderButton(
-            document.getElementById("google-user-button"),
-            { theme: "outline", size: "large", type: "standard", text: "signin_with" }
-        );
-        
-        // Optional: Render the one-tap prompt
-        window.google.accounts.id.prompt(); 
+    if (!GOOGLE_CLIENT_ID) {
+      console.error('Missing VITE_GOOGLE_CLIENT_ID in env');
+      return;
     }
-  }, [navigate]);
+
+    if (window.google) {
+      window.google.accounts.id.initialize({
+        client_id: GOOGLE_CLIENT_ID,
+        callback: handleCredentialResponse,
+      });
+
+      window.google.accounts.id.renderButton(
+        document.getElementById('googleSignInDiv'),
+        { theme: 'outline', size: 'large' }
+      );
+    }
+  }, [GOOGLE_CLIENT_ID]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();

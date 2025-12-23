@@ -7,6 +7,8 @@ const FoodPartnerLogin = () => {
 
   const navigate = useNavigate();
 
+  const GOOGLE_CLIENT_ID = import.meta.env.VITE_GOOGLE_CLIENT_ID;
+
   // Function called by Google SDK upon successful login (for partners)
   const handleCredentialResponse = async (response) => {
     try {
@@ -24,20 +26,23 @@ const FoodPartnerLogin = () => {
 
 
   useEffect(() => {
-    // Check if google SDK is loaded and initialize
-    if (window.google) {
-        window.google.accounts.id.initialize({
-            client_id: "YOUR_GOOGLE_CLIENT_ID", // !!! REPLACE THIS !!!
-            callback: handleCredentialResponse
-        });
-
-        // Render the Google Sign-In button into the container
-        window.google.accounts.id.renderButton(
-            document.getElementById("google-partner-button"),
-            { theme: "outline", size: "large", type: "standard", text: "signin_with" }
-        );
+    if (!GOOGLE_CLIENT_ID) {
+      console.error('Missing VITE_GOOGLE_CLIENT_ID in env');
+      return;
     }
-  }, [navigate]);
+
+    if (window.google) {
+      window.google.accounts.id.initialize({
+        client_id: GOOGLE_CLIENT_ID, // replaces YOUR_GOOGLE_CLIENT_ID
+        callback: handleCredentialResponse,
+      });
+
+      window.google.accounts.id.renderButton(
+        document.getElementById('googleSignInDiv'),
+        { theme: 'outline', size: 'large' }
+      );
+    }
+  }, [GOOGLE_CLIENT_ID]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
