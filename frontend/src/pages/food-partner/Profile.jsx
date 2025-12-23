@@ -8,10 +8,11 @@ const Profile = () => {
     const [ profile, setProfile ] = useState(null)
     const [ videos, setVideos ] = useState([])
     const navigate = useNavigate()
+    const API_URL = import.meta.env.VITE_API_URL;
 
     useEffect(() => {
         // Fetch food partner profile data and their associated videos
-        axios.get(`http://localhost:3000/api/foodpartner/${id}`, { withCredentials: true })
+        axios.get(`${API_URL}/api/foodpartner/${id}`, { withCredentials: true })
             .then(response => {
                 const fetchedPartner = response.data.foodPartner;
                 // Ensure we handle case where foodItems might be missing or null

@@ -7,9 +7,11 @@ import { useNavigate } from 'react-router-dom';
 const Saved = () => {
     const [ videos, setVideos ] = useState([])
     const navigate = useNavigate();
+    const API_URL = import.meta.env.VITE_API_URL;
+
 
     useEffect(() => {
-        axios.get("http://localhost:3000/api/food/save", { withCredentials: true })
+        axios.get(`${API_URL}/api/food/save`, { withCredentials: true })
             .then(response => {
                 const savedFoods = response.data.savedFoods.map((item) => ({
                     _id: item.food._id,
@@ -32,7 +34,7 @@ const Saved = () => {
 
     const removeSaved = async (item) => {
         try {
-            const response = await axios.post("http://localhost:3000/api/food/save", { foodId: item._id }, { withCredentials: true })
+            const response = await axios.post(`${API_URL}/api/food/save`, { foodId: item._id }, { withCredentials: true })
             // Check the message to ensure it was unsaved before updating the UI
             if(response.data.message.includes("unsaved")){
                 // Remove the item from the local state list to update the UI

@@ -5,13 +5,14 @@ import '../../styles/auth-shared.css';
 
 const Landing = () => {
     const navigate = useNavigate();
+    const API_URL = import.meta.env.VITE_API_URL;
 
     // Check if user is already logged in and redirect to feed if so
     useEffect(() => {
         const checkAuth = async () => {
             try {
                 // Check if authenticated as a regular user by hitting a protected route
-                await axios.get("http://localhost:3000/api/food", { withCredentials: true });
+                await axios.get(`${API_URL}/api/food`, { withCredentials: true });
                 navigate("/feed"); 
             } catch (userError) {
                 // Not authenticated, stay on landing page

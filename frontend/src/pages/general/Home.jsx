@@ -9,10 +9,11 @@ const Home = () => {
     const [ isLoading, setIsLoading ] = useState(true); 
     const [ error, setError ] = useState(null); 
     const navigate = useNavigate();
+    const API_URL = import.meta.env.VITE_API_URL;
 
     async function handleUserLogout() {
         try {
-            await axios.get("http://localhost:3000/api/auth/user/logout", { withCredentials: true });
+            await axios.get(`${API_URL}/api/auth/user/logout`, { withCredentials: true });
             navigate("/");
         } catch (logoutError) {
             console.error("Logout failed:", logoutError);
@@ -23,7 +24,7 @@ const Home = () => {
     useEffect(() => {
         setIsLoading(true); 
         setError(null);
-        axios.get("http://localhost:3000/api/food", { withCredentials: true })
+        axios.get(`${API_URL}/api/food`, { withCredentials: true })
             .then(response => {
                 console.log("Videos fetched successfully:", response.data);
                 setVideos(response.data.foodItems)
@@ -46,7 +47,7 @@ const Home = () => {
 
     async function likeVideo(item) {
         try {
-            const response = await axios.post("http://localhost:3000/api/food/like", { foodId: item._id }, {withCredentials: true})
+            const response = await axios.post(`${API_URL}/api/food/like`, { foodId: item._id }, {withCredentials: true})
             if(response.data.like){
                 setVideos((prev) => prev.map((v) => v._id === item._id ? { ...v, likeCount: (v.likeCount || 0) + 1 } : v))
             }else{
@@ -59,7 +60,7 @@ const Home = () => {
 
     async function saveVideo(item) {
         try {
-            const response = await axios.post("http://localhost:3000/api/food/save", { foodId: item._id }, { withCredentials: true })
+            const response = await axios.post(`${API_URL}/api/food/save`, { foodId: item._id }, { withCredentials: true })
             if(response.data.save){
                 setVideos((prev) => prev.map((v) => v._id === item._id ? { ...v, savesCount: (v.savesCount || 0) + 1 } : v))
             }else{

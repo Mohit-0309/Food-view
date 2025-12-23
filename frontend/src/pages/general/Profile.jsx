@@ -3,10 +3,11 @@ import { useNavigate } from "react-router-dom";
 
 function UserProfile() {
   const navigate = useNavigate();
+  const API_URL = import.meta.env.VITE_API_URL;
 
   const handleLogout = async () => {
     try {
-      await fetch("http://localhost:3000/user/logout", {
+      await fetch(`${API_URL}/user/logout`, {
         method: "GET",
         credentials: "include", // ensures cookies are cleared
       });

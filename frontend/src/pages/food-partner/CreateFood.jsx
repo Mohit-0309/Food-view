@@ -12,11 +12,12 @@ const CreateFood = () => {
     const fileInputRef = useRef(null);
 
     const navigate = useNavigate();
+    const API_URL = import.meta.env.VITE_API_URL;
 
     // Added Logout functionality
     const handlePartnerLogout = async () => {
         try {
-            await axios.get("http://localhost:3000/api/auth/food-partner/logout", { withCredentials: true });
+            await axios.get(`${API_URL}/api/auth/food-partner/logout`, { withCredentials: true });
             navigate("/"); // Redirect to the new landing page
         } catch (error) {
             console.error("Logout failed:", error);
@@ -69,7 +70,7 @@ const CreateFood = () => {
         formData.append("mama", videoFile);
 
         try {
-            const response = await axios.post("http://localhost:3000/api/food", formData, {
+            const response = await axios.post(`${API_URL}/api/food`, formData, {
                 withCredentials: true,
             })
     
