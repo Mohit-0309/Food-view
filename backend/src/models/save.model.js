@@ -1,5 +1,4 @@
 const mongoose = require('mongoose');
-//onst { use } = require('react');
 
 const saveSchema = new mongoose.Schema({  
     user: {
