@@ -250,7 +250,8 @@ async function registerUser(req, res) {
             secure: true,      // Required for SameSite: 'none'
             sameSite: 'none',  // Required for cross-domain (Vercel to Render)
             partitioned: true, // Helps with modern Chrome privacy rules
-            maxAge: 24 * 60 * 60 * 1000
+            maxAge: 24 * 60 * 60 * 1000,
+            path: '/'
         }
     );
     res.status(201).json({ message: "User registered successfully", user: { _id: user._id, email: user.email, fullName: user.fullName } });
@@ -273,7 +274,8 @@ async function loginUser(req, res) {
             secure: true,      // Required for SameSite: 'none'
             sameSite: 'none',  // Required for cross-domain (Vercel to Render)
             partitioned: true, // Helps with modern Chrome privacy rules
-            maxAge: 24 * 60 * 60 * 1000
+            maxAge: 24 * 60 * 60 * 1000,
+            path: '/'
         }
     );
     res.status(200).json({ message: "User logged in successfully", user: { _id: user._id, email: user.email, fullName: user.fullName } });
@@ -299,7 +301,8 @@ async function registerFoodPartner(req, res) {
             secure: true,      // Required for SameSite: 'none'
             sameSite: 'none',  // Required for cross-domain (Vercel to Render)
             partitioned: true, // Helps with modern Chrome privacy rules
-            maxAge: 24 * 60 * 60 * 1000
+            maxAge: 24 * 60 * 60 * 1000,
+            path: '/'
         }
     );
     res.status(201).json({ message: "Food partner registered successfully", foodPartner: { _id: foodPartner._id, email: foodPartner.email, name: foodPartner.name, address: foodPartner.address, contactName: foodPartner.contactName, phone: foodPartner.phone } });
@@ -322,7 +325,8 @@ async function loginFoodPartner(req, res) {
             secure: true,      // Required for SameSite: 'none'
             sameSite: 'none',  // Required for cross-domain (Vercel to Render)
             partitioned: true, // Helps with modern Chrome privacy rules
-            maxAge: 24 * 60 * 60 * 1000
+            maxAge: 24 * 60 * 60 * 1000,
+            path: '/'
         }
     );
     res.status(200).json({ message: "Food partner logged in successfully", foodPartner: { _id: foodPartner._id, email: foodPartner.email, name: foodPartner.name } });
@@ -386,7 +390,8 @@ async function googleUserLogin(req, res) {
                 secure: true,      // Required for SameSite: 'none'
                 sameSite: 'none',  // Required for cross-domain (Vercel to Render)
                 partitioned: true, // Helps with modern Chrome privacy rules
-                maxAge: 24 * 60 * 60 * 1000
+                maxAge: 24 * 60 * 60 * 1000,
+                path: '/'
             }
         );
         res.status(200).json({ message: "User logged in successfully with Google." });
@@ -405,7 +410,8 @@ async function googleFoodPartnerLogin(req, res) {
                 secure: true,      // Required for SameSite: 'none'
                 sameSite: 'none',  // Required for cross-domain (Vercel to Render)
                 partitioned: true, // Helps with modern Chrome privacy rules
-                maxAge: 24 * 60 * 60 * 1000
+                maxAge: 24 * 60 * 60 * 1000,
+                path: '/'
             }
         );
         res.status(200).json({ message: "Food Partner logged in successfully with Google." });
