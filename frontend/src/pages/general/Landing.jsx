@@ -27,7 +27,7 @@ const Landing = () => {
                 
                 {/* Main Header and Tagline */}
                 <header className="landing-header">
-                    <h1 className="landing-tagline">Food View: Discover & Serve</h1>
+                    <h1 className="landing-tagline">Feast Feed : Discover & Serve</h1>
                     <p className="landing-subtitle">
                         Your central hub for finding and showcasing the most vibrant food videos online. 
                         <br />
