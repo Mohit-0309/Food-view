@@ -8,9 +8,10 @@ const cors = require('cors');
 
 const app = express();
 app.use(cors({
-    origin: process.env.NODE_ENV === 'production' 
-      ? ['https://feast-feed.vercel.app/'] // Replace with your actual Vercel URL
-      : 'http://localhost:5173',         // Local Vite dev server
+    origin: [
+        'http://localhost:5173', 
+        'https://feast-feed.vercel.app' // Add your Vercel URL here
+      ],
     credentials: true,
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
     allowedHeaders: ['Content-Type', 'Authorization']

@@ -8,13 +8,15 @@ const UserLogin = () => {
 
   const navigate = useNavigate();
 
+  const API_URL = import.meta.env.VITE_API_URL;
+
   const GOOGLE_CLIENT_ID = import.meta.env.VITE_GOOGLE_CLIENT_ID;
 
   // Function called by Google SDK upon successful login
   const handleCredentialResponse = async (response) => {
     try {
         // IMPORTANT: Replace with your actual GOOGLE_CLIENT_ID or dynamically load it
-        const res = await axios.post("http://localhost:3000/api/auth/google/user", {
+        const res = await axios.post(`${API_URL}/api/auth/user/login`, {
             idToken: response.credential
         }, { withCredentials: true });
     
